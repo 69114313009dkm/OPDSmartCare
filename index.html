@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="app-web-url" content="https://script.google.com/macros/s/AKfycbz6memKbtbYJrR5DjlI_q_XIThu-fY9Fd1C-KbNGjWi4ZTOTf5tWco89aRHo69VrPbPjg/exec">
+  <link rel="canonical" href="https://script.google.com/macros/s/AKfycbz6memKbtbYJrR5DjlI_q_XIThu-fY9Fd1C-KbNGjWi4ZTOTf5tWco89aRHo69VrPbPjg/exec">
+  <title>OPD BP SmartCare</title>
+  <style>
+    :root { --navy:#123b5d; --teal:#0f8b83; --blue:#176b9b; --bg:#f3f7fa; --line:#dce6ed; --text:#203342; --muted:#6b7b88; --danger:#c74444; --shadow:0 8px 24px rgba(18,59,93,.08); }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-family:Arial,"Noto Sans Thai",sans-serif; font-size:14px; }
+    button,input,select,textarea { font:inherit; }
+    button { cursor:pointer; }
+    .shell { display:flex; min-height:100vh; }
+    .sidebar { width:245px; background:var(--navy); color:#fff; padding:22px 14px; flex:none; }
+    .brand { padding:0 12px 22px; border-bottom:1px solid rgba(255,255,255,.16); }
+    .brand small { color:#a9d8d4; letter-spacing:.08em; text-transform:uppercase; }
+    .brand h1 { margin:8px 0 4px; font-size:21px; }
+    .brand p { margin:0; color:#c7d7e2; line-height:1.5; }
+    .nav { display:grid; gap:7px; margin-top:22px; }
+    .nav button { border:0; border-radius:9px; background:transparent; color:#d9e8f0; padding:12px; text-align:left; }
+    .nav button:hover,.nav button.active { background:rgba(255,255,255,.14); color:#fff; }
+    .main { flex:1; min-width:0; }
+    .topbar { display:flex; justify-content:space-between; align-items:center; padding:18px 28px; background:#fff; border-bottom:1px solid var(--line); }
+    .topbar h2 { margin:0; font-size:20px; }
+    .user { text-align:right; color:var(--muted); line-height:1.5; }
+    .user strong { color:var(--text); }
+    .content { max-width:1320px; margin:0 auto; padding:26px 28px 48px; }
+    .view { display:none; }
+    .view.active { display:block; }
+    .grid { display:grid; gap:18px; }
+    .grid.cards { grid-template-columns:repeat(4,minmax(0,1fr)); }
+    .grid.two { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:20px; box-shadow:var(--shadow); }
+    .metric { border-left:5px solid var(--teal); }
+    .metric:nth-child(2) { border-color:var(--blue); }.metric:nth-child(3) { border-color:#e19a3b; }.metric:nth-child(4) { border-color:#a269b4; }
+    .metric label { color:var(--muted); }.metric strong { display:block; font-size:30px; margin-top:10px; color:var(--navy); }
+    .section-title { display:flex; justify-content:space-between; align-items:center; gap:12px; margin:0 0 16px; }
+    .section-title h3 { margin:0; font-size:17px; }
+    .muted { color:var(--muted); }.notice { padding:12px 14px; border-radius:9px; background:#edf8f7; color:#146c66; margin-bottom:18px; }
+    .form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .field { display:flex; flex-direction:column; gap:6px; }.field.full { grid-column:1/-1; }
+    label { font-weight:600; color:#405362; }.required::after { content:' *'; color:var(--danger); }
+    input,select,textarea { width:100%; border:1px solid #cbd9e2; border-radius:8px; padding:10px 11px; color:var(--text); background:#fff; }
+    textarea { min-height:82px; resize:vertical; }.actions { display:flex; justify-content:flex-end; gap:10px; margin-top:18px; }
+    .btn { border:0; border-radius:8px; padding:10px 16px; font-weight:600; }.btn.primary { background:var(--teal); color:#fff; }.btn.secondary { background:#e8f0f4; color:var(--navy); }.btn:disabled { opacity:.6; cursor:wait; }
+    table { width:100%; border-collapse:collapse; }.table-wrap { overflow:auto; } th,td { padding:11px 10px; border-bottom:1px solid var(--line); text-align:left; white-space:nowrap; } th { color:var(--muted); font-size:12px; background:#f8fafb; }
+    .pill { display:inline-block; border-radius:999px; padding:4px 9px; background:#e7f6f3; color:#126e67; font-size:12px; }.pill.warn { background:#fff3df; color:#9a641d; }
+    .empty { padding:25px; text-align:center; color:var(--muted); }.toast { position:fixed; right:22px; bottom:22px; max-width:360px; z-index:5; padding:13px 16px; border-radius:9px; color:#fff; background:#234; box-shadow:var(--shadow); display:none; }.toast.show { display:block; }.toast.error { background:var(--danger); }
+    .score-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }.score-grid .field { background:#f7fafb; padding:10px; border-radius:8px; }
+    .login-screen { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; background:linear-gradient(135deg,#123b5d,#0f8b83); }
+    .login-card { width:min(420px,100%); background:#fff; border-radius:16px; padding:30px; box-shadow:0 20px 50px rgba(0,0,0,.2); }.login-card h1 { margin:0 0 8px; color:var(--navy); }.login-card p { color:var(--muted); line-height:1.6; }.login-card .actions { margin-top:8px; }.login-error { min-height:20px; color:var(--danger); margin:10px 0; }.logout { margin-top:6px; padding:4px 9px; border:1px solid var(--line); border-radius:6px; background:#fff; color:var(--danger); font-size:12px; }
+    .app-url { display:inline-block; margin-top:4px; color:var(--blue); font-size:12px; word-break:break-all; }
+    @media (max-width:900px) { .shell { display:block; }.sidebar { width:100%; padding:14px; }.brand { padding-bottom:13px; }.nav { display:flex; overflow:auto; margin-top:13px; }.nav button { white-space:nowrap; }.grid.cards { grid-template-columns:repeat(2,minmax(0,1fr)); }.topbar { padding:15px 18px; }.content { padding:20px 18px 40px; } }
+    @media (max-width:600px) { .grid.cards,.grid.two,.form-grid { grid-template-columns:1fr; }.field.full { grid-column:auto; }.user { display:none; }.score-grid { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <div id="login-screen" class="login-screen">
+    <div class="login-card">
+      <small style="color:var(--teal);letter-spacing:.08em;text-transform:uppercase">OPD care system</small>
+      <h1>BP SmartCare</h1>
+      <p>กรุณาเข้าสู่ระบบก่อนใช้งาน ระบบจะตรวจสอบบัญชีกับข้อมูลในชีต Settings</p>
+      <a class="app-url" href="https://script.google.com/macros/s/AKfycbz6memKbtbYJrR5DjlI_q_XIThu-fY9Fd1C-KbNGjWi4ZTOTf5tWco89aRHo69VrPbPjg/exec" target="_blank" rel="noopener">เปิด Web app URL</a>
+      <form id="login-form">
+        <div class="field"><label class="required">ชื่อผู้ใช้</label><input name="username" autocomplete="username" required></div>
+        <div class="field" style="margin-top:12px"><label class="required">รหัสผ่าน</label><input name="password" type="password" autocomplete="current-password" required></div>
+        <div id="login-error" class="login-error"></div>
+        <div class="actions"><button class="btn primary" type="submit">เข้าสู่ระบบ</button></div>
+      </form>
+    </div>
+  </div>
+  <div id="app-shell" class="shell" style="display:none">
+    <aside class="sidebar">
+      <div class="brand"><small>OPD care system</small><h1>BP SmartCare</h1><p>ระบบบันทึกและติดตามผู้ป่วยความดันโลหิต</p></div>
+      <nav class="nav">
+        <button class="active" data-view="dashboard">ภาพรวม</button>
+        <button data-view="patients">ทะเบียนผู้ป่วย</button>
+        <button data-view="bp">บันทึกความดัน</button>
+        <button data-view="selfcare">ประเมินการดูแลตนเอง</button>
+        <button data-view="followup">ติดตามผู้ป่วย</button>
+      </nav>
+    </aside>
+    <main class="main">
+      <header class="topbar"><h2 id="page-title">ภาพรวม</h2><div class="user"><span id="user-box">กำลังเชื่อมต่อ...</span><br><button id="logout-button" class="logout" type="button">ออกจากระบบ</button></div></header>
+      <section class="content">
+        <div id="dashboard" class="view active">
+          <div class="notice">ข้อมูลในระบบเป็นข้อมูลสุขภาพส่วนบุคคล โปรดใช้งานตามสิทธิ์และนโยบายของหน่วยงาน</div>
+          <div class="grid cards">
+            <div class="card metric"><label>ผู้ป่วยทั้งหมด</label><strong id="metric-patients">0</strong></div>
+            <div class="card metric"><label>บันทึกความดัน</label><strong id="metric-bp">0</strong></div>
+            <div class="card metric"><label>รายการติดตาม</label><strong id="metric-followup">0</strong></div>
+            <div class="card metric"><label>ประเมินการดูแลตนเอง</label><strong id="metric-selfcare">0</strong></div>
+          </div>
+          <div class="card" style="margin-top:18px"><div class="section-title"><h3>รายการความดันล่าสุด</h3><span class="muted">แสดง 10 รายการ</span></div><div id="recent-bp" class="table-wrap"></div></div>
+        </div>
+
+        <div id="patients" class="view"><div class="grid two"><div class="card"><div class="section-title"><h3>เพิ่มทะเบียนผู้ป่วย</h3></div><form id="patient-form"><div class="form-grid"><div class="field"><label class="required">HN</label><input name="HN" required maxlength="40"></div><div class="field"><label class="required">ชื่อ-นามสกุล</label><input name="Full_Name" required maxlength="120"></div><div class="field"><label>วันเกิด</label><input name="DOB" type="date"></div><div class="field"><label>อายุ</label><input name="Age" type="number" min="0" max="120"></div><div class="field"><label>เพศ</label><select name="Sex"><option value="">ไม่ระบุ</option><option>หญิง</option><option>ชาย</option><option>อื่น ๆ</option></select></div><div class="field"><label>โทรศัพท์</label><input name="Phone" maxlength="30"></div><div class="field full"><label>โรคร่วม</label><textarea name="Comorbidities" maxlength="500"></textarea></div><div class="field full"><label>สรุปยาที่ใช้</label><textarea name="Medication_Summary" maxlength="1000"></textarea></div></div><div class="actions"><button class="btn primary" type="submit">บันทึกผู้ป่วย</button></div></form></div><div class="card"><div class="section-title"><h3>ทะเบียนผู้ป่วย</h3><span id="patient-count" class="muted"></span></div><div id="patient-table" class="table-wrap"></div></div></div></div>
+
+        <div id="bp" class="view"><div class="card"><div class="section-title"><h3>บันทึกค่าความดันโลหิต</h3><span class="muted">ระบบไม่วินิจฉัยหรือปรับการรักษาอัตโนมัติ</span></div><form id="bp-form"><div class="form-grid"><div class="field"><label class="required">ผู้ป่วย</label><select name="Patient_ID" class="patient-select" required></select></div><div class="field"><label class="required">แหล่งการวัด</label><select name="Source" required><option value="โรงพยาบาล">โรงพยาบาล</option><option value="ที่บ้าน">ที่บ้าน</option></select></div><div class="field"><label class="required">วันที่วัด</label><input name="Measurement_Date" type="date" required></div><div class="field"><label>เวลา</label><input name="Measurement_Time" type="time"></div><div class="field"><label class="required">SBP</label><input name="SBP" type="number" min="50" max="300" required></div><div class="field"><label class="required">DBP</label><input name="DBP" type="number" min="30" max="200" required></div><div class="field"><label>ชีพจร</label><input name="Pulse" type="number" min="20" max="250"></div><div class="field"><label>ครั้งที่วัด</label><select name="Reading_No"><option value="">ไม่ระบุ</option><option>1</option><option>2</option><option>3</option></select></div><div class="field"><label>ท่า</label><select name="Position"><option value="นั่ง">นั่ง</option><option value="ยืน">ยืน</option><option value="นอน">นอน</option></select></div><div class="field"><label>แขน</label><select name="Arm"><option value="ซ้าย">ซ้าย</option><option value="ขวา">ขวา</option></select></div><div class="field"><label>ต้องทบทวนโดยทีมรักษา</label><select name="Review_Required"><option value="false">ไม่ระบุ</option><option value="true">ใช่</option></select></div><div class="field full"><label>หมายเหตุ</label><textarea name="Notes" maxlength="1000"></textarea></div></div><div class="actions"><button class="btn primary" type="submit">บันทึกค่าความดัน</button></div></form></div></div>
+
+        <div id="selfcare" class="view"><div class="card"><div class="section-title"><h3>แบบประเมินการดูแลตนเอง</h3><span class="muted">แต่ละข้อให้คะแนน 0–2</span></div><form id="selfcare-form"><div class="form-grid"><div class="field"><label class="required">ผู้ป่วย</label><select name="Patient_ID" class="patient-select" required></select></div><div class="field"><label class="required">วันที่ประเมิน</label><input name="Assessment_Date" type="date" required></div></div><div class="score-grid" style="margin-top:15px" id="score-fields"></div><div class="field" style="margin-top:14px"><label>หมายเหตุ</label><textarea name="Notes" maxlength="1000"></textarea></div><div class="actions"><button class="btn primary" type="submit">บันทึกการประเมิน</button></div></form></div></div>
+
+        <div id="followup" class="view"><div class="grid two"><div class="card"><div class="section-title"><h3>เพิ่มรายการติดตาม</h3></div><form id="followup-form"><div class="form-grid"><div class="field full"><label class="required">ผู้ป่วย</label><select name="Patient_ID" class="patient-select" required></select></div><div class="field"><label class="required">วันที่กำหนดติดตาม</label><input name="Due_Date" type="date" required></div><div class="field"><label>วันที่ติดตามจริง</label><input name="FollowUp_Date" type="date"></div><div class="field"><label>สถานะ</label><select name="Status"><option>รอติดตาม</option><option>ติดตามแล้ว</option><option>ส่งต่อประเมิน</option><option>เลื่อนนัด</option><option>ยกเลิก</option></select></div><div class="field"><label>นัดครั้งถัดไป</label><input name="Next_Appointment" type="date"></div><div class="field full"><label>การดำเนินการ</label><textarea name="Action_Taken" maxlength="1500"></textarea></div><div class="field full"><label>การส่งต่อ/หมายเหตุ</label><textarea name="Referral" maxlength="1000"></textarea></div></div><div class="actions"><button class="btn primary" type="submit">บันทึกการติดตาม</button></div></form></div><div class="card"><div class="section-title"><h3>รายการติดตาม</h3></div><div id="followup-table" class="table-wrap"></div></div></div></div>
+      </section>
+    </main>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script>
+    const state = { token: null, patients: [], bpRecords: [], selfCare: [], followUps: [], user: null };
+    const scoreItems = [
+      ['Medication_1','การใช้ยาข้อ 1'],['Medication_2','การใช้ยาข้อ 2'],['Diet_1','อาหารข้อ 1'],['Diet_2','อาหารข้อ 2'],
+      ['Activity_1','กิจกรรมทางกายข้อ 1'],['Activity_2','กิจกรรมทางกายข้อ 2'],['Monitoring_1','การติดตามตนเองข้อ 1'],['Monitoring_2','การติดตามตนเองข้อ 2'],['Appointment_1','การมาตามนัดข้อ 1'],['Appointment_2','การมาตามนัดข้อ 2']
+    ];
+    const $ = (selector) => document.querySelector(selector);
+    const $$ = (selector) => Array.from(document.querySelectorAll(selector));
+    function today() { return new Date().toISOString().slice(0,10); }
+    function esc(value) { return String(value == null ? '' : value).replace(/[&<>'"]/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])); }
+    function showToast(message, error) { const el = $('#toast'); el.textContent = message; el.className = 'toast show' + (error ? ' error' : ''); setTimeout(() => el.className = 'toast', 4500); }
+    function formObject(form) { return Object.fromEntries(new FormData(form).entries()); }
+    function call(name, args, success, failure) {
+      if (!window.google || !google.script || !google.script.run) { (failure || (() => showToast('ต้องเปิดผ่าน Google Apps Script Web app', true)))('ต้องเปิดผ่าน Google Apps Script Web app'); return; }
+      const runner = google.script.run.withSuccessHandler((result) => { success(result); }).withFailureHandler((err) => { if (failure) failure(err.message || String(err)); else showToast(err.message || String(err), true); });
+      if (!args || !args.length) runner[name](); else if (args.length === 1) runner[name](args[0]); else runner[name](args[0], args[1]);
+    }
+    function showLogin(message) { state.token = null; sessionStorage.removeItem('bpSmartCareToken'); $('#app-shell').style.display = 'none'; $('#login-screen').style.display = 'flex'; $('#login-error').textContent = message || ''; }
+    function showApp() { $('#login-screen').style.display = 'none'; $('#app-shell').style.display = 'flex'; }
+    function refresh(result) { Object.assign(state, result.data, { user: result.user }); showApp(); render(); }
+    function load() { call('getBootstrapData', [state.token], refresh, showLogin); }
+    function render() {
+      $('#user-box').innerHTML = '<strong>' + esc(state.user ? state.user.name : '') + '</strong><br>' + esc(state.user ? state.user.role + ' · ' + state.user.email : '');
+      $('#metric-patients').textContent = state.patients.length; $('#metric-bp').textContent = state.bpRecords.length; $('#metric-followup').textContent = state.followUps.length; $('#metric-selfcare').textContent = state.selfCare.length;
+      $('#patient-count').textContent = state.patients.length + ' รายการ';
+      fillPatients(); renderPatientTable(); renderRecentBP(); renderFollowups();
+    }
+    function fillPatients() {
+      const options = '<option value="">เลือกผู้ป่วย</option>' + state.patients.map(p => '<option value="' + esc(p.Patient_ID) + '">' + esc(p.HN + ' · ' + p.Full_Name) + '</option>').join('');
+      $$('.patient-select').forEach(select => { const old = select.value; select.innerHTML = options; select.value = old; });
+    }
+    function renderPatientTable() {
+      if (!state.patients.length) { $('#patient-table').innerHTML = '<div class="empty">ยังไม่มีข้อมูลผู้ป่วย</div>'; return; }
+      $('#patient-table').innerHTML = '<table><thead><tr><th>HN</th><th>ชื่อ-นามสกุล</th><th>อายุ</th><th>เพศ</th><th>โรคร่วม</th></tr></thead><tbody>' + state.patients.map(p => '<tr><td>' + esc(p.HN) + '</td><td>' + esc(p.Full_Name) + '</td><td>' + esc(p.Age) + '</td><td>' + esc(p.Sex) + '</td><td>' + esc(p.Comorbidities) + '</td></tr>').join('') + '</tbody></table>';
+    }
+    function patientName(id) { const p = state.patients.find(x => String(x.Patient_ID) === String(id)); return p ? p.HN + ' · ' + p.Full_Name : id; }
+    function renderRecentBP() {
+      const rows = state.bpRecords.slice().reverse().slice(0,10); if (!rows.length) { $('#recent-bp').innerHTML = '<div class="empty">ยังไม่มีรายการความดัน</div>'; return; }
+      $('#recent-bp').innerHTML = '<table><thead><tr><th>วันที่</th><th>ผู้ป่วย</th><th>ความดัน</th><th>ชีพจร</th><th>แหล่งวัด</th><th>ทบทวน</th></tr></thead><tbody>' + rows.map(r => '<tr><td>' + esc(r.Measurement_Date) + ' ' + esc(r.Measurement_Time) + '</td><td>' + esc(patientName(r.Patient_ID)) + '</td><td><strong>' + esc(r.SBP) + '/' + esc(r.DBP) + '</strong></td><td>' + esc(r.Pulse) + '</td><td>' + esc(r.Source) + '</td><td>' + (String(r.Review_Required) === 'true' ? '<span class="pill warn">ต้องทบทวน</span>' : '-') + '</td></tr>').join('') + '</tbody></table>';
+    }
+    function renderFollowups() {
+      const rows = state.followUps.slice().reverse(); if (!rows.length) { $('#followup-table').innerHTML = '<div class="empty">ยังไม่มีรายการติดตาม</div>'; return; }
+      $('#followup-table').innerHTML = '<table><thead><tr><th>กำหนด</th><th>ผู้ป่วย</th><th>สถานะ</th><th>ติดตามจริง</th></tr></thead><tbody>' + rows.map(r => '<tr><td>' + esc(r.Due_Date) + '</td><td>' + esc(patientName(r.Patient_ID)) + '</td><td><span class="pill">' + esc(r.Status) + '</span></td><td>' + esc(r.FollowUp_Date) + '</td></tr>').join('') + '</tbody></table>';
+    }
+    function submit(form, api, resetFields) {
+      const button = form.querySelector('button[type=submit]'); button.disabled = true;
+      call(api, [state.token, formObject(form)], (result) => { button.disabled = false; showToast('บันทึกข้อมูลเรียบร้อย'); resetFields ? resetFields() : form.reset(); load(); }, (message) => { button.disabled = false; showToast(message, true); });
+      setTimeout(() => { button.disabled = false; }, 6000);
+    }
+    $('#login-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const form = e.target; const button = form.querySelector('button[type=submit]'); button.disabled = true; $('#login-error').textContent = '';
+      call('login', [formObject(form)], (result) => { state.token = result.token; sessionStorage.setItem('bpSmartCareToken', result.token); form.reset(); button.disabled = false; load(); }, (message) => { button.disabled = false; $('#login-error').textContent = message; });
+    });
+    $('#logout-button').addEventListener('click', () => { const token = state.token; sessionStorage.removeItem('bpSmartCareToken'); state.token = null; if (token) call('logout', [token], () => showLogin(), () => showLogin()); else showLogin(); });
+    $$('.nav button').forEach(button => button.addEventListener('click', () => { $$('.nav button').forEach(b => b.classList.remove('active')); button.classList.add('active'); $$('.view').forEach(v => v.classList.remove('active')); $('#' + button.dataset.view).classList.add('active'); $('#page-title').textContent = button.textContent; }));
+    $('#patient-form').addEventListener('submit', (e) => { e.preventDefault(); submit(e.target, 'savePatient'); });
+    $('#bp-form').addEventListener('submit', (e) => { e.preventDefault(); submit(e.target, 'saveBPRecord', () => { e.target.reset(); e.target.Measurement_Date.value = today(); }); });
+    $('#selfcare-form').addEventListener('submit', (e) => { e.preventDefault(); submit(e.target, 'saveSelfCare', () => { e.target.reset(); e.target.Assessment_Date.value = today(); }); });
+    $('#followup-form').addEventListener('submit', (e) => { e.preventDefault(); submit(e.target, 'saveFollowUp'); });
+    $('#score-fields').innerHTML = scoreItems.map(([key,label]) => '<div class="field"><label>' + label + '</label><select name="' + key + '" required><option value="">เลือกคะแนน</option><option value="0">0 — ไม่ปฏิบัติ</option><option value="1">1 — ปฏิบัติบางส่วน</option><option value="2">2 — ปฏิบัติสม่ำเสมอ</option></select></div>').join('');
+    $$('input[type=date]').forEach(input => { if (input.name === 'Measurement_Date' || input.name === 'Assessment_Date') input.value = today(); });
+    const savedToken = sessionStorage.getItem('bpSmartCareToken');
+    if (savedToken) { state.token = savedToken; load(); } else showLogin();
+  </script>
+</body>
+</html>
